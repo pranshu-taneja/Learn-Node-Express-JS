@@ -2,6 +2,7 @@
 const path = require("path")
 const http = require("http")
 const fs = require("fs")
+const emitter = require('events')
 
 /* #1 working of require in js */
 function require_working_1(){
@@ -132,45 +133,6 @@ function fs_module_5(){
     })
 }
 
-function someextras(){
-    // const server = http.createServer((req,res)=>{
-//     const url = req.url;
-//     res.setHeader("Content-Type","text/html");
-//     if(url === "/"){
-//         res.write("<html>")
-//         res.write("<header>Plain text</header>")
-//         res.write("<h1>This is header text</h1>")
-//         res.write("</html>")
-//         console.log("The server worked!!")
-//         return res.end()
-//     }
-//     if(url === "/file"){
-//         fs.writeFileSync("NeWfile.txt","Brother");   (Not good way)
-//         res.statusCode = 333;
-//         res.setHeader("Location","/abc")
-//         return res.end();
-//     }
-//     res.write("<html>")
-//     res.write("<header>Wet text</header>")
-//     res.write("<h1>This is Second Header text</h1>")
-//     res.write("</html>")
-//     console.log("The server JUST worked Again!!")
-//     res.end()
-// })
-
-// const server = http.createServer((req,res)=>{
-    //bad way of reading file 
-    // const read = fs.readFileSync("file.txt");    //first read file using readfilesync
-    // res.writeHead(200,{'Content-Type':'video/mp4'});     //add type
-    // return res.end(read);        //return to response which eventually is going to return data to browser
- 
-    //good way of reading file (i.e with stream and buffer)
-    // const read = fs.createReadStream("hello.mp4");
-    // res.writeHead(200,{'Content-Type':'video/mp4'});
-    // read.pipe(res);
-// })
-}
- 
 
 function os_module_6(){
     const os = require("os")
@@ -236,3 +198,43 @@ function how_auth_works_8(){
 }
 
 
+function traditional_way_routing_8(){      //normal way of routing 
+        const server = http.createServer((req,res)=>{
+            const url = req.url;
+            res.setHeader("Content-Type","text/html");
+            if(url === "/"){
+                res.write("<html>")
+                res.write("<header>Plain text</header>")
+                res.write("<h1>This is header text</h1>")
+                res.write("</html>")
+                console.log("The server worked!!")
+                return res.end()
+            }
+            if(url === "/file"){
+                fs.writeFileSync("NeWfile.txt","Brother");   //(Not good way)
+                res.statusCode = 333;
+                res.setHeader("Location","/abc")
+                return res.end();
+            }
+            res.write("<html>")
+            res.write("<header>Wet text</header>")
+            res.write("<h1>This is Second Header text</h1>")
+            res.write("</html>")
+            console.log("The server JUST worked Again!!")
+            res.end()
+        })
+    
+        //------------------- reading data through stream and pipeline -------------------
+       /*  const server = http.createServer((req,res)=>{
+            // bad way of reading file 
+            const read = fs.readFileSync("file.txt");    //first read file using readfilesync
+            res.writeHead(200,{'Content-Type':'video/mp4'});     //add type
+            return res.end(read);        //return to response which eventually is going to return data to browser
+        
+            // good way of reading file (i.e with stream and buffer)
+            const read = fs.createReadStream("hello.mp4");
+            res.writeHead(200,{'Content-Type':'video/mp4'});
+            read.pipe(res);
+        }) */
+}
+     
